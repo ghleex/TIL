@@ -13,3 +13,4 @@ for search in searches:
 #     rank = soup.select_one('#PM_ID_ct > div.header > div.section_navbar > div.area_hotkeyword.PM_CL_realtimeKeyword_base > div.ah_roll.PM_CL_realtimeKeyword_rolling_base > div > ul > li:nth-child('+str(i)+') > a > span.ah_k').text
 #     print(rank)
 
+# 두 번째 커밋을 위한 주석!
