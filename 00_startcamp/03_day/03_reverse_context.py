@@ -15,19 +15,31 @@
 1
 0
 """
-# 1. 파일 만들기
-with open('quest.txt', 'w') as f:
-    for i in range(4):
-        f.write(f'{i}\n')
+# # 1. 파일 만들기
+# with open('quest.txt', 'w') as f:
+#     for i in range(4):
+#         f.write(f'{i}\n')
 
-# 2. 파일 읽어 들이기
+# # 2.1. 만든 파일 읽어 들이기
+# with open('quest.txt', 'r') as rf:
+#     lines = rf.readlines()
+#     print(lines)
+
+# # 3.1. 읽은 것을 기반으로 뒤집어서 작성
+# with open('reversed_quest.txt', 'w') as wf:  
+#     for line in reversed(lines):
+#         wf.write(f'{line}')
+#         print(line.strip())
+
+# 2.2. 읽어 들이기 다른 방법(아예 리스트 순서를 바꿔버림)
 with open('quest.txt', 'r') as rf:
     lines = rf.readlines()
+    lines.reverse()
     print(lines)
 
-# 3. 읽은 것을 기반으로 뒤집어서 작성
-with open('reversed_quest.txt', 'w') as wf:    
-    for line in reversed(lines):
-        wf.write(f'{line}')
-        print(line.strip())
-
+# 3.2. 역순으로 쓰기
+with open('reversed_quest.txt', 'w') as wf:
+    # for line in lines:
+    #     wf.write(f'{line}')
+    #     print(line.strip())
+    wf.writelines(lines)
