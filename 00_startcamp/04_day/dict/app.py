@@ -19,36 +19,44 @@ def lotto_result():
     # 3. json형태로 바꾸어준다.(chrome에서 보는 결과와 동일한 형태)
     lotto = res.json()
 
-    # 4. 6개 당첨번호 가져오기
+    # 4. 6개 당첨번호 가져오기(빈 리스트 만들어서 하나씩 추가하기)
     winner = []
     for i in range(1, 7):
         winner.append(lotto[f'drwtNo{i}'])
 
     # 5. 본인 번호 리스트 만들기
     numbers = []
-    for num in request.args.get('numbers').split():
+    me = request.args.get('numbers').split()
+    for num in me:
         # 여기서 num은 int가 아닌 str형이므로 형변환 필요
         numbers.append(int(num))
 
     # 6. 몇 개가 일치하는지 확인(교집합 몇 개?)
     # 나의 번호가 당첨 번호 리스트(winner)에 있는지 확인
-    matched = 0    
-    for num in numbers:
-        if num in winner:
-            matched += 1
-    if matched == 6:
-        result = '1등입니다! 대박'
-    elif matched == 5:
-        if lotto['bnusNo'] in num:
-            result = '2등입니다! 1등 아까비'
+    # matched = 0    
+    # for num in numbers:
+    #     if num in winner:
+    #         matched += 1
+
+    # set을 이용한 코드
+    matched = len(set(winner) & set(numbers))
+
+    if len(numbers) == 6:
+        if matched == 6:
+            result = '1등입니다! 대박'
+        elif matched == 5:
+            if lotto['bnusNo'] in num:
+                result = '2등입니다! 1등 아까비'
+            else:
+                result = '3등입니다! 보너스....'
+        elif matched == 4:
+            result = '4등입니다! 오만원'
+        elif matched == 5:
+            result = '5등입니다! 오천원'
         else:
-            result = '3등입니다! 보너스....'
-    elif matched == 4:
-        result = '4등입니다! 오만원'
-    elif matched == 5:
-        result = '5등입니다! 오천원'
+            result = '꽝!'
     else:
-        result = '꽝!'
+        result = '6개의 번호를 입력했는지 확인하세요.'
 
     return render_template('lotto_result.html',
                             winner=winner,
