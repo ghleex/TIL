@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DISPLAY Advanced</title>
+  <link rel="stylesheet" href="06_display_ad.css">
+</head>
+<body>
+  <!-- block -->
+  <div>block</div>
+  <div>block</div>
+
+  <!--
+    inline
+    내용없이 존재할 수 없음
+    즉, width와 height 적용 불가
+  -->
+  <div class="inline">안녕?</div>
+  <div class="inline">인라인은 까탈스러우니 내용영역을 꼭 넣어줘라</div>
+
+  <!--
+    inline-block
+    block 속성(width, height) 적용 가능
+    + 기본적으로 inline 속성(우측 margin 사라짐)을 가지고 있음
+  -->
+  <div class="inline-block">i-b</div>
+  <div class="inline-block">i-b</div>
+
+  <!-- 
+  display: none; 공간도 사라짐
+  visibility: hidden; 공간은 안 없어지고 잘 있네?
+  -->
+ <div>div</div>
+ <div class="none">none</div>
+ <div class="hidden">hidden</div>
+ <div>div</div>
+
+ <!-- opacity; 요소의 투명도 조절 (0~1) -->
+ <div class="opacity">opacity</div>
+
+</body>
+</html>
