@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>GRID</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+    .square {
+      width: 200px;
+      height: 200px;
+      background-color: royalblue;
+      border: 1px solid black;
+      color: white;
+      text-align: center;
+      line-height: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- grid의 기본 골격 -->
+  <div class="container">
+    <div class="row">
+      <!-- row가 반드시 있어야 grid가 작동함 -->
+      <div class="square col-4">1</div>
+      <div class="square col-4">2</div>
+      <div class="square col-4">3</div>
+      <!-- total col 갯수가 12이면 됨 -->
+      <!-- grid 갯수 총 합이 12인 이유: 약수가 많아서 -->
+      <!-- 나눠서 배열 만들 경우의 수가 다양함 -->
+    </div>
+  </div>
+  <hr>
+
+  <!-- 2. container-fluid 양쪽 여백없이 꽉 채우기 -->
+  <div class="container-fluid">
+    <div class="row">
+      <!-- row가 반드시 있어야 grid가 작동함 -->
+      <div class="square col-4">1</div>
+      <div class="square col-4">2</div>
+      <div class="square col-4">3</div>
+      <!-- total col 갯수가 12이면 됨 -->
+      <!-- grid 갯수 총 합이 12인 이유: 약수가 많아서 -->
+      <!-- 나눠서 배열 만들 경우의 수가 다양함 -->
+    </div>
+  </div>
+
+  <!-- 3. grid - col-1 -->
+  <div class="container">
+    <div class="row">
+      <div class="square col-1">1</div>
+      <div class="square col-1">2</div>
+      <div class="square col-1">3</div>
+      <div class="square col-1">4</div>
+      <div class="square col-1">5</div>
+      <div class="square col-1">6</div>
+      <div class="square col-1">7</div>
+      <div class="square col-1">8</div>
+      <div class="square col-1">9</div>
+      <div class="square col-1">10</div>
+      <div class="square col-1">11</div>
+      <div class="square col-1">12</div>
+      <!-- grid 12개를 초과하는 순간부터 아래로 내려감 -->
+      <div class="square col-1">13</div>
+    </div>
+  </div>
+
+  <!-- 4. grid col 합이 12 초과하는 경우 -->
+  <div class="container">
+    <div class="row">
+      <div class="square col-9">col-9</div>
+      <div class="square col-4">col-4</div>
+      <div class="square col-3">col-3</div>
+    </div>
+  </div>
+
+
+  <!-- 5. grid 정리 -->
+  <div class="container">
+    <h1 class="text-center">정리</h1>
+    <div class="row">
+      <div class="square col-1">col-1</div>
+      <div class="square col-1">col-1</div>
+      <div class="square col-1">col-1</div>
+    </div>
+
+    <div class="row">
+      <div class="square col-3">col-3</div>
+      <div class="square col-3">col-3</div>
+      <div class="square col-3">col-3</div>
+      <div class="square col-3">col-3</div>
+    </div>
+
+    <div class="row">
+      <div class="square col-4">col-4</div>
+      <div class="square col-8">col-8</div>
+    </div>
+
+    <div class="row">
+      <div class="square col-2 offset-5">col-2</div>
+    </div>
+
+    <div class="row">
+        <div class="square col-md-3 col-6"></div>
+        <div class="square col-md-3 col-6"></div>
+        <div class="square col-md-3 col-6"></div>
+        <div class="square col-md-3 col-6"></div>
+      </div>
+  </div>
+
+  <h2 class="text-center">퀴즈</h2>
+  <!--
+    해당 조건에 맞게 grid 를 통해 작성
+    576px 미만: 1등분
+    576px 이상: 2등분
+    768px 이상: 3등분
+    992px 이상: 4등분
+    1200px 이상: 6등분
+  -->
+  <div class="row">
+    <div class="square col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"></div>
+    <div class="square col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"></div>
+    <div class="square col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"></div>
+    <div class="square col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"></div>
+    <div class="square col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"></div>
+    <div class="square col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"></div>
+    <div class="square col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"></div>
+    <div class="square col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"></div>
+    <div class="square col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"></div>
+    <div class="square col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"></div>
+    <div class="square col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"></div>
+    <div class="square col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"></div>
+  </div>
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+</body>
+
+</html>
