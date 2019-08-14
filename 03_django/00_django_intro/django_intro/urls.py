@@ -20,10 +20,15 @@ from pages import views     # 생성한 app pages 폴더 내 views.py 파일
 # url 경로 마지막에 / 붙이기
 # path('hello/<str:name>/', views.hello) 역시 가능
 urlpatterns = [
+    path('isitgwangbok2/', views.isitgwangbok2),
+    path('isitgwangbok/', views.isitgwangbok),
+    path('template_language/', views.template_language),
+    path('area/<int:r>/', views.area),
+    path('times/<int:num1>.<int:num2>/', views.times),
     path('hello/<name>/', views.hello),
     path('image/', views.image),
     path('dinner/', views.dinner),
-    path('introduce/', views.introduce),
+    path('introduce/<name>.<age>/', views.introduce),
     path('index/', views.index),    
     path('admin/', admin.site.urls),
 ]
