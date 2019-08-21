@@ -9,6 +9,7 @@ class Article(models.Model):    # models.Model 에서 상속 받음
     created_at = models.DateTimeField(auto_now_add=True)    # 클래스 변수: DB의 필드
     updated_at = models.DateTimeField(auto_now=True)
 
-    
+    def __str__(self):
+        return f'{self.pk}번 글 - {self.title}: {self.content}'
 
 
