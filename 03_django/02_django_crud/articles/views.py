@@ -13,12 +13,9 @@ def index(request):
     return render(request, 'articles/index.html', context)
 
 
-def new(request):
-    return render(request, 'articles/new.html')
-
-
 def create(request):
-    try:
+    # CREATE
+    if request.method == 'POST':
         title = request.POST.get('title')
         content = request.POST.get('content')
         # 1. 첫 번째 방법으로 저장: 'from .models import Article' 추가 필요
@@ -30,35 +27,37 @@ def create(request):
         # 2.
         article = Article(title=title, content=content)
         article.full_clean()    # 유효성 검증
-    except: # 검증 시 오류 발생한다면
-        raise ValidationError('Validation Error Occurred')
-    else:
+
         article.save()
-        return redirect(f'/articles/{article.pk}/')   # 메인 페이지로 redirect
-        
+        return redirect(article)   # 메인 페이지로 redirect
+    # NEW
+    else:
+        return render(request, 'articles/create.html')
         
 
 def detail(request, pk):
     article = Article.objects.get(pk=pk)
+    
     context = {'article': article,}
     return render(request, 'articles/detail.html', context)
 
 
 def delete(request, pk):
     article = Article.objects.get(pk=pk)
-    article.delete()
-    return redirect('/articles/')    # DB를 건드리기 때문에 메인페이지로 돌리기
-
-
-def edit(request, pk):
-    article = Article.objects.get(pk=pk)
-    context = {'article': article,}
-    return render(request, 'articles/edit.html', context)
+    if request.method == 'POST':        
+        article.delete()
+        return redirect('articles:index')    # DB를 건드리기 때문에 메인페이지로 돌리기
+    else:
+        return redirect(article)
 
 
 def update(request, pk):
     article = Article.objects.get(pk=pk)
-    article.title = request.POST.get('title')
-    article.content = request.POST.get('content')
-    article.save()
-    return redirect(f'/articles/{article.pk}/')    
+    if request.method == 'POST':
+        article.title = request.POST.get('title')
+        article.content = request.POST.get('content')
+        article.save()
+        return redirect(article)
+    else:        
+        context = {'article': article,}
+        return render(request, 'articles/update.html', context)

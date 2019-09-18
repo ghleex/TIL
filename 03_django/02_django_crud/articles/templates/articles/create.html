@@ -2,7 +2,7 @@
 
 {% block content %}
   <h1 class="text-center">NEW</h1>
-  <form action="/articles/create/" method="POST">
+  <form action="" method="POST">
     {% csrf_token %}  
     {% comment %} POST 방식에서 {% csrf_token %} 잊지 말자 {% endcomment %}
     <label for="title">TITLE</label>
