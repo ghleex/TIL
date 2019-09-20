@@ -1,15 +1,20 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-  <h1 class="text-center">NEW</h1>
-  <form action="" method="POST">
+  <img src="{% static 'images/google.png' %}" alt="google_img">
+  <h1 class="text-center">CREATE</h1>
+  <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}  
     {% comment %} POST 방식에서 {% csrf_token %} 잊지 말자 {% endcomment %}
     <label for="title">TITLE</label>
-    <input type="text" name="title" id="title"><br>
+    <input type="text" name="title" id="title" required><br>
     <label for="content">CONTENT</label>
     <textarea name="content" id="content" cols="30" rows="5"></textarea><br>
+    <label for="image">IMAGE</label>
+    <input type="file" name="image" id="image" accept="image/*">
     {% comment %} django는 textarea 사용 {% endcomment %}
-    <input type="submit" value="submit">
+    <input type="submit" value="submit"><br>
+    <a href="{% url 'articles:index' %}">[ BACK ]</a>
   </form>
 {% endblock %}

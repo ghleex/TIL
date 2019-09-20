@@ -18,6 +18,7 @@ def create(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         content = request.POST.get('content')
+        image = request.FILES.get('image')
         # 1. 첫 번째 방법으로 저장: 'from .models import Article' 추가 필요
         # article = Article()
         # article.title = title
@@ -25,8 +26,8 @@ def create(request):
         # article.save()
 
         # 2.
-        article = Article(title=title, content=content)
-        article.full_clean()    # 유효성 검증
+        article = Article(title=title, content=content, image=image)
+        # article.full_clean()    # 유효성 검증
 
         article.save()
         return redirect(article)   # 메인 페이지로 redirect
@@ -58,6 +59,7 @@ def update(request, article_pk):
     if request.method == 'POST':
         article.title = request.POST.get('title')
         article.content = request.POST.get('content')
+        article.image = request.FILES.get('image')
         article.save()
         return redirect(article)
     else:        

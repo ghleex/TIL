@@ -1,10 +1,32 @@
+from imagekit.models import ProcessedImageField, ImageSpecField
+from imagekit.processors import Thumbnail
 from django.urls import reverse
 from django.db import models
+
+# 이미지 업로드 경로 커스터마이징
+def articles_image_path(instance, filename):
+    return f'articles/{instance.pk}/images/{filename}'
 
 # Create your models here.
 class Article(models.Model):
     title = models.CharField(max_length=20)     # 기본값: blank=False
     content = models.TextField()
+    # image = models.ImageField(blank=True)   # 굳이 올리지 않아도 저장됨 / 이미지 추가 없이도 게시글 올라갈 것임
+    # image_thumbnail = ImageSpecField(
+    #     source='image',     # 원본 ImageField 이름
+    #     processors=[Thumbnail(200, 300)],
+    #     format='JPEG',
+    #     options={'quality': 90},
+    # )    
+    image = ProcessedImageField(
+        # ProcessedImageField 필드의 인자로 들어가 있는 값들은
+        # migrations 이후 추가되거나 수정되더라도
+        # makemigrations 하지 않아도 됨
+        processors=[Thumbnail(200, 300)],   # 처리할 작업 목록 / 리스트 형태
+        format='JPEG',              # 저장 포맷
+        options={'quality': 90},    # 추가 옵션 / 딕셔너리 형태
+        upload_to='articles/images',    # media 폴더 이후 실제 저장할 경로 추가 지정(MEDIA_ROOT/article/images)
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
