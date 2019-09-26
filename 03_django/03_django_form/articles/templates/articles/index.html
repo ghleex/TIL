@@ -1,0 +1,12 @@
+{% extends 'articles/base.html' %}
+
+{% block content %}
+  <h1>Articles</h1>
+  <a href="{% url 'articles:create' %}">[ NEW ]</a>
+  {% for article in articles %}
+    <p>{{ article.pk }}</p>
+    <p>{{ article.title }}</p>
+    <a href="{{ article.get_absolute_url }}">[ DETAIL ]</a>
+    <hr>
+  {% endfor %}
+{% endblock %}
