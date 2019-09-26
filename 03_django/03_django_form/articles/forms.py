@@ -76,7 +76,8 @@ class CommentForm(forms.ModelForm):
     )
     
     class Meta:
+        # 변수 model, fields 는 고정된 이름임
         model = Comment
-        fields = '__all__'
+        fields = ('content',)
 
 
