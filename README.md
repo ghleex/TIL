@@ -49,3 +49,11 @@
 
 
 ### 2.3. Django :black_square_button:
+
+* #### CRUD 기본
+
+
+
+### 2.4. DB :minidisc:
+
+* #### SQL 문에 대한 이해
