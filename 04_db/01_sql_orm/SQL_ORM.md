@@ -126,24 +126,23 @@ TIL
 
    ```python
    # orm
-   user = User(first_name='길동', last_name='고', age='35', country='서울특별시', phone='010-9365-6514', balance=990000)
-   user.save()
+   User.objects.create(first_name='길동', last_name='고', age='35', country='서울특별시', phone='010-9365-6514', balance='990000')
    ```
-
-   ```sql
+   
+```sql
    -- sql
-   INSERT INTO users_user (first_name, last_name, age, country, phone, balance) VALUES ('길동', '고', '35', '서울특별시', '010-9365-6514', 990000)
+   INSERT INTO users_user VALUES (102, '길동', '고', 35, '서울특별시', '010-9365-6514', 990000)
    ```
-
-   * 하나의 레코드를 빼고 작성 후 `NOT NULL` constraint 오류를 orm과 sql에서 모두 확인 해보세요.
-
+   
+* 하나의 레코드를 빼고 작성 후 `NOT NULL` constraint 오류를 orm과 sql에서 모두 확인 해보세요.
+   
 3. 해당 user 레코드 조회
 
    - `101` 번 id의 전체 레코드 조회
 
    ```python
    # orm
-   
+   User.objects.get(pk=101)
    ```
 
    ```sql
@@ -158,6 +157,9 @@ TIL
 
    ```python
    # orm
+   user = User.objects.get(pk=101)
+   user.last_name = '김'
+   user.save()
    ```
 
       ```sql
@@ -172,8 +174,9 @@ TIL
 
    ```python
    # orm
-   ```
-
+   User.objects.get(pk=101).delete()
+```
+   
    ```sql
    -- sql
    DELETE FROM users_user WHERE id=101;
@@ -193,6 +196,8 @@ TIL
 
    ```python
    # orm
+   User.objects.all().count()	# 추천!
+   len(User.objects.all())		# 비추!
    ```
 
    ```sql
@@ -207,11 +212,12 @@ TIL
 
    ```python
    # orm
+   User.objects.filter(age=30).values('first_name')
    ```
 
       ```sql
    -- sql
-   SELECT first_name FROM users_user WHERE age>=30;
+   SELECT first_name FROM users_user WHERE age=30;
       ```
 
 3. 나이가 30살 이상인 사람의 인원 수
@@ -220,6 +226,7 @@ TIL
 
    ```python
    # orm
+   User.objects.filter(age__gte=30).count()
    ```
 
       ```sql
@@ -231,6 +238,7 @@ TIL
 
    ```python
    # orm
+   User.objects.filter(age__lte=20).count()
    ```
 
    ```sql
@@ -242,17 +250,20 @@ TIL
 
    ```python
    # orm
+   User.objects.filter(age=30, last_name='김').count()
    ```
 
       ```sql
    -- sql
-   SELECT COUNT(*) FROM users_user WHERE age>=30 and last_name='김';
+   SELECT COUNT(*) FROM users_user WHERE age=30 and last_name='김';
       ```
 
 6. 나이가 30이거나 성이 김씨인 사람?
 
    ```python
    # orm
+   from django.db.models import Q	# shell_plus 에서는 import 필요 없음
+   User.objects.filter(Q(age=30) | Q(last_name='김'))
    ```
 
    ```sql
@@ -266,6 +277,7 @@ TIL
 
    ```python
    # orm
+   User.objects.filter(phone__startswith='02-').count()
    ```
 
       ```sql
@@ -277,8 +289,11 @@ TIL
 
    ```python
    # orm
+   User.objects.filter(country='강원도', last_name='황').values('first_name')
+# 이름만 뽑아오기
+   User.objects.filter(country='강원도', last_name='황').values('first_name').first().get('first_name')
    ```
-
+   
       ```sql
    -- sql
    SELECT first_name FROM users_user WHERE country='강원도' and last_name='황';
@@ -296,17 +311,21 @@ TIL
 
    ```python
    # orm
+   User.objects.order_by('-age')[:10]
    ```
 
       ```sql
    -- sql
-   SELECT * FROM users_user ORDER BY age LIMIT 10;
+   SELECT * FROM users_user ORDER BY age DESC LIMIT 10;
       ```
 
 2. 잔액이 적은 사람순으로 10명
 
    ```python
    # orm
+   User.objects.order_by('balance')[:10]
+   # 여러 조건을 주고 싶을 때는 괄호 안에서 나열하면 됨.
+   # 정렬은 먼저 나온 순서부터 우선 정렬
    ```
 
       ```sql
@@ -318,8 +337,9 @@ TIL
 
       ```python
    # orm
-   ```
-
+   User.objects.order_by('balance', '-age')[:10]
+```
+   
    ```sql
    -- sql
    SELECT * FROM users_user ORDER BY balance ASC, age DESC LIMIT 10;
@@ -329,8 +349,9 @@ TIL
 
    ```python
    # orm
-   ```
-
+   User.objects.order_by('-last_name', '-first_name')[4]
+```
+   
       ```sql
    -- sql
    SELECT * FROM users_user ORDER BY last_name DESC, first_name DESC LIMIT 1 OFFSET 4;
@@ -355,6 +376,8 @@ TIL
 
    ```python
    # orm
+   from django.db.models import Avg	# shell_plus 는 import 필요 없음
+   User.objects.all().aggregate(avg_value=Avg('age'))
    ```
 
       ```sql
@@ -366,6 +389,7 @@ TIL
 
    ```python
    # orm
+   User.objects.filter(last_name='김').aggregate(Avg('age'))
    ```
 
       ```sql
@@ -377,6 +401,7 @@ TIL
 
    ```python
    # orm
+   User.objects.filter(country='강원도').aggregate(Avg('balance'))
    ```
 
    ```sql
@@ -388,6 +413,8 @@ TIL
 
    ```python
    # orm
+   from django.db.models import Max	# shell_plus 는 import 필요 없음
+   User.objects.aggregate(Max('balance'))
    ```
 
       ```sql
@@ -399,8 +426,10 @@ TIL
 
    ```python
    # orm
+   from django.db.models import Sum	# shell_plus 는 import 필요 없음
+User.objects.aggregate(Sum('balance'))
    ```
-
+   
       ```sql
    -- sql
    SELECT SUM(balance) FROM users_user;
