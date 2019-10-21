@@ -7,9 +7,20 @@ from .forms import ArticleForm, CommentForm
 
 # Create your views here.
 def index(request):
+    # session 에 visits_number(방문 횟수) 키로 접근하여 값 가져오기
+    # 기본적으로 존재하지 않는 키이므로, 키가 없다면(방문한 적이 없다면) 0 값을 가져오도록 해야 함
+    visits_num = request.session.get('visits_num', 0)
+
+    # 그리고 가져온 값을 session 의 visits_num 에 매 번 1 씩 증가한 값으로 할당
+    # 값을 늘리는 이유: 유저가 방문한 횟수 확인
+    request.session['visits_num'] = visits_num + 1
+    # session data 내의 새로운 정보를 수정했을 때 django 는 수정한 것을 알지 못하므로
+    # 아래와 같이 설정
+    request.session.modified = True
+
     articles = Article.objects.all()
     # articles = get_list_or_404(Article)   # 적절한 장소에서 쓰자
-    context = {'articles': articles,}
+    context = {'articles': articles, 'visits_num': visits_num,}
     
     return render(request, 'articles/index.html', context)
     

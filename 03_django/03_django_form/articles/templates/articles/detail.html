@@ -1,6 +1,8 @@
 {% extends 'articles/base.html' %}
 {% load bootstrap4 %}
 
+{% block title %}게시글 보기{% endblock title %}
+
 {% block content %}
   <h1>DETAIL</h1>
   <hr>
@@ -33,11 +35,11 @@
     <input type="submit" value="댓글 추가">
   </form>
 
-  <a href="{% url 'articles:update' article.pk %}">[ UPDATE ]</a>
-  <form action="{% url 'articles:delete' article.pk %}" method="POST">
+  <a class="btn btn-success" href="{% url 'articles:update' article.pk %}">UPDATE</a>
+  <form action="{% url 'articles:delete' article.pk %}" method="POST" style="display: inline">
     {% csrf_token %}
-    <input type="submit" value="삭제">
+    <input class="btn btn-danger" type="submit" value="삭제">
   </form>
   <hr>  
-  <a href="{% url 'articles:index' %}">[ BACK ]</a>
+  <a class="btn btn-primary" href="{% url 'articles:index' %}">BACK</a>
 {% endblock %}

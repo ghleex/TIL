@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'articles.apps.ArticlesConfig',
+    'accounts.apps.AccountsConfig',
     'bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -114,6 +115,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# 모든 곳에서 `request.session.modified = True` 를 적용하고 싶다면
+# 아래와 같이 세팅(아래 코드는 정해진 것임)
+# SESSION_SAVE_EVERY_REQUEST = True
 
 
 # Static files (CSS, JavaScript, Images)

@@ -5,11 +5,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>{% block title %}
+  {% endblock title %}</title>
   {% bootstrap_css %}
 </head>
 <body>
   <div class="container">
+  {% if user.is_authenticated %} <!-- request.user.is_authenticated 의 축약; 둘 다 같은 것 -->
+    <h3>
+      Hello! {{ user.username }}
+      <a class="btn btn-danger" href="{% url 'accounts:logout' %}">로그아웃</a>
+    </h3>
+  {% else %}
+      <h3>
+      <a class="btn btn-primary" href="{% url 'accounts:login' %}">로그인</a>
+      <a class="btn btn-success" href="{% url 'accounts:signup' %}">회원가입</a>
+    </h3>
+  {% endif %}
+  <hr>
     {% block content %}
     {% endblock %}
   </div>
