@@ -14,12 +14,14 @@
   <hr>
 
   <!-- 댓글 보이는 곳 -->
+  <p><b>댓글을 클릭하면 삭제됩니다.</b></p>
   {% for comment in comments %}
-    <div>댓글 {{forloop.revcounter}}: {{ comment.content }}    
-    <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST" style="display: inline">
-    <!-- article.pk 빼먹지 말자 -->
+    <div class="list-group">
+    <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST">
       {% csrf_token %}
-      <input type="submit" value="댓글 삭제">
+      <input type="submit" class="list-group-item list-group-item-action" value="{{forloop.revcounter}}: {{ comment.content }}">
+    <!-- article.pk 빼먹지 말자 -->
+      <!-- <input type="submit" value="댓글 삭제"> -->
     </form>
     </div>
 
@@ -31,11 +33,11 @@
   <!-- 댓글 작성 공간(form) -->
   <form action="{% url 'articles:comments_create' article.pk %}" method="POST">
     {% csrf_token %}
-    {{ c_form }}
-    <input type="submit" value="댓글 추가">
+    {% bootstrap_form c_form %}
+    <input class="btn btn-secondary" type="submit" value="댓글 추가">
   </form>
-
-  <a class="btn btn-success" href="{% url 'articles:update' article.pk %}">UPDATE</a>
+  <hr>
+  <a class="btn btn-info" href="{% url 'articles:update' article.pk %}">글 수정</a>
   <form action="{% url 'articles:delete' article.pk %}" method="POST" style="display: inline">
     {% csrf_token %}
     <input class="btn btn-danger" type="submit" value="삭제">

@@ -19,8 +19,8 @@
   <hr>
 
   {% if request.resolver_match.url_name == 'create' %}
-    <a href="{% url 'articles:index' %}">[ BACK ]</a>
+    <a class="btn btn-primary" href="{% url 'articles:index' %}">메인으로</a>    
   {% else %}
-    <a href="{{ article.get_absolute_url }}">[ BACK ]</a>
+    <a class="btn btn-primary" href="{{ article.get_absolute_url }}">메인으로</a>
   {% endif %}
 {% endblock %}
