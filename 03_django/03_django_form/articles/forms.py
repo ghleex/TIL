@@ -51,9 +51,9 @@ class ArticleForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        # fields = ('title', 'content')
-        fields = '__all__'            # 전체 입력 필드 관련 컬럼 다 쓰기
-        # exclude = ('title')         # 'title' 제외한 나머지 필드만 쓴다
+        fields = ('title', 'content',)
+        # fields = '__all__'            # 전체 입력 필드 관련 컬럼 다 쓰기
+        # exclude = ('user_id',)         # 'title' 제외한 나머지 필드만 쓴다
 
         # 1. 위젯을 meta에 넣기
         # widgets = {

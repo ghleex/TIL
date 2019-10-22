@@ -1,3 +1,4 @@
+import hashlib
 from IPython import embed
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.http import Http404, HttpResponse
@@ -38,7 +39,9 @@ def create(request):
             # title = form.cleaned_data.get('title')
             # content = form.cleaned_data.get('content')
             # article = Article.objects.create(title=title, content=content)  # 위에서 유효성 검사가 끝났으므로 save할 필요 없이 사용 가능
-            article = form.save()
+            article = form.save(commit=False)
+            article.user = request.user
+            article.save()
             return redirect(article)
 
     else:   # GET 방식
@@ -64,8 +67,11 @@ def detail(request, article_pk):
 def delete(request, article_pk):
     if request.user.is_authenticated:
         article = get_object_or_404(Article, pk=article_pk)
+        if request.user == article.user:
         # if request.method == 'POST':
-        article.delete()
+            article.delete()
+        else:
+            return redirect(article)
     return redirect('articles:index')
     # else:
     #     return redirect(article)
@@ -74,23 +80,27 @@ def delete(request, article_pk):
 @login_required
 def update(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
-    if request.method == 'POST':
-        # form = ArticleForm(request.POST)
-        form = ArticleForm(request.POST, instance=article)
-        if form.is_valid():
-            # article.title = form.cleaned_data.get('title')
-            # article.content = form.cleaned_data.get('content')
-            # article.save()
-            article = form.save()
-            return redirect(article)
+    if request.user == article.user:    # 새로 추가된 부분: 작성자와 로그인 사용자가 동일인물인지 확인
+        if request.method == 'POST':
+            # form = ArticleForm(request.POST)
+            form = ArticleForm(request.POST, instance=article)
+            if form.is_valid():
+                # article.title = form.cleaned_data.get('title')
+                # article.content = form.cleaned_data.get('content')
+                # article.save()
+                article = form.save(commit=False)
+                article.user = request.user
+                article.save()
+                return redirect(article)
+        else:
+            # ArticleForm 을 초기화: 이전에 DB에 저장된 데이터를 넣어준 상태
+            # form = ArticleForm(initial={'title': article.title, 'content': article.content})
+            # __dict__ :  article 객체 데이터를 딕셔너리 자료형으로 변환
+            # 아래와 같이 짧게 쓸 수 있다. python 과 django 가 섞인 것
+            # form = ArticleForm(initial=article.__dict__)
+            form = ArticleForm(instance=article)
     else:
-        # ArticleForm 을 초기화: 이전에 DB에 저장된 데이터를 넣어준 상태
-        # form = ArticleForm(initial={'title': article.title, 'content': article.content})
-        # __dict__ :  article 객체 데이터를 딕셔너리 자료형으로 변환
-        # 아래와 같이 짧게 쓸 수 있다. python 과 django 가 섞인 것
-        # form = ArticleForm(initial=article.__dict__)
-        form = ArticleForm(instance=article)
-    
+        return redirect('articles:index')
     # 1. POST 방식일 때 오는 FORM: 검증에 실패한 form - 오류메시지도 포함된 상태
     # 2. GET 방식일 때 오는 FORM: 초기화된 form
     context = {'form': form, 'article':article,}
@@ -106,6 +116,7 @@ def comments_create(request, article_pk):
             # 객체를 Create 하지만, db 에 레코드는 작성하지 않음
             comment = c_form.save(commit=False)            
             comment.article_id = article_pk
+            comment.user = request.user
             comment.save()
     return redirect('articles:detail', article_pk)
     
@@ -115,7 +126,8 @@ def comments_delete(request, article_pk, comment_pk):
     if request.user.is_authenticated:
         # if request.method == 'POST':
         comment = get_object_or_404(Comment, pk=comment_pk)
-        comment.delete()
+        if request.user == comment.user:
+            comment.delete()
         return redirect('articles:detail', article_pk)
     return HttpResponse('You are not authroized. 401 ERROR', status=401)
     
