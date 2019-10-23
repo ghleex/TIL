@@ -12,29 +12,13 @@
   {% bootstrap_css %}
 </head>
 <body>
+  {% include 'articles/_nav.html' %}
+
   <div class="container">
-  {% if user.is_authenticated %} <!-- request.user.is_authenticated 의 축약; 둘 다 같은 것 -->
-    <h3>
-      <img src="https://s.gravatar.com/avatar/{{ user.email|makemd5 }}?s=80" alt="profile">
-      Hello! {{ user.username }}
-      <a class="btn btn-secondary" href="{% url 'accounts:update' %}">정보수정</a>
-      <a class="btn btn-secondary" href="{% url 'accounts:change_password' %}">비밀번호 변경</a>
-      <a class="btn btn-warning" href="{% url 'accounts:logout' %}">로그아웃</a>
-      <form action="{% url 'accounts:delete' %}" method="POST" style="display: inline">
-        {% csrf_token %}
-        <input class="btn btn-danger" type="submit" value="회원탈퇴">
-      </form>
-    </h3>
-  {% else %}
-      <h3>
-      <a class="btn btn-primary" href="{% url 'accounts:login' %}">로그인</a>
-      <a class="btn btn-success" href="{% url 'accounts:signup' %}">회원가입</a>
-    </h3>
-  {% endif %}
-  <hr>
     {% block content %}
     {% endblock %}
   </div>
+  
   {% bootstrap_javascript jquery='full' %}
 </body>
 </html>

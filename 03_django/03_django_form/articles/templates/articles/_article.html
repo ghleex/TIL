@@ -1,5 +1,7 @@
 <div class="card mb-3">
-  <div class="card-header">작성자: {{ article.user }}</div>
+  <div class="card-header">
+    작성자: <a class="card-link" href="{% url 'accounts:profile' article.user %}">{{ article.user }}</a>
+  </div>
   <div class="card-body">
     <h5 class="card-title">제목: {{ article.title }}</h5>
     <p class="card-text">번호: {{ article.pk }}</p>

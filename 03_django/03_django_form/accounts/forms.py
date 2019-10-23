@@ -8,5 +8,7 @@ class CustomUserChangeForm(UserChangeForm):
 
 
 class CustomUserCreationForm(UserCreationForm):
-    class Meta(UserCreationForm.Meta):        
+    class Meta(UserCreationForm.Meta):
+        model = get_user_model()    # 현재 project 의 active user 를 model 로 사용
+        # 따라서 위와 같이 설정함으로써 accounts.User 를 가리키게 됨
         fields = UserCreationForm.Meta.fields + ('email',)

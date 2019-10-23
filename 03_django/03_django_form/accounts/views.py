@@ -1,10 +1,11 @@
 from IPython import embed
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import login as auth_login # 이름 바꾸기
 from django.contrib.auth import logout as auth_logout # 이름 바꾸기
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from .forms import CustomUserChangeForm, CustomUserCreationForm
 
@@ -85,3 +86,11 @@ def change_password(request):
         form = PasswordChangeForm(request.user)
     context = {'form': form,}
     return render(request, 'accounts/auth_form.html', context)
+
+
+def profile(request, username):
+    person = get_object_or_404(get_user_model(), username=username)
+    articles = person.article_set.all()
+    comments = person.article_set.all()
+    context = {'person': person, 'articles': articles, 'comments': comments,}
+    return render(request, 'accounts/profile.html', context)

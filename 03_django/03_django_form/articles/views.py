@@ -1,5 +1,6 @@
 import hashlib
 from IPython import embed
+from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.http import Http404, HttpResponse
 from django.views.decorators.http import require_POST
@@ -58,8 +59,14 @@ def create(request):
 def detail(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     comments = article.comment_set.all()        # article의 모든 댓글
+    person = get_object_or_404(get_user_model(), pk=article.user_id)
     c_form = CommentForm()        # 댓글 출력 위한 폼 출력
-    context = {'article': article, 'c_form': c_form, 'comments': comments,}
+    context = {
+        'article': article,
+        'c_form': c_form,
+        'comments': comments,
+        'person': person,
+    }
     return render(request, 'articles/detail.html', context)
 
 
@@ -132,6 +139,7 @@ def comments_delete(request, article_pk, comment_pk):
     return HttpResponse('You are not authroized. 401 ERROR', status=401)
     
 
+@login_required
 def like(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     # 해당 게시글에 '좋아요'를 누른 사람 중 현재 접속 user 가 있다면 '좋아요' 취소도 가능해야 함
@@ -146,3 +154,19 @@ def like(request, article_pk):
         article.like_users.add(request.user)
         # '좋아요' 클릭
     return redirect('articles:index')
+
+
+@login_required
+def follow(request, article_pk, user_pk):
+    # person: 게시글 유저
+    person = get_object_or_404(get_user_model(), pk=user_pk)
+    # user: 접속 유저
+    user = request.user
+    if person != user:  # 자기 자신한테 follow 할 수 없도록
+        # 내(request.user)가 게시글 유저(person) 팔로워 목록에 이미 존재한다면,
+        # if user in person.followers.all():
+        if person.followers.filter(pk=user.pk).exists():
+            person.followers.remove(user)
+        else:
+            person.followers.add(user)
+    return redirect('articles:detail', article_pk)

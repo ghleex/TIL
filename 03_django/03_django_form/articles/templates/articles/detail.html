@@ -54,5 +54,7 @@
     <input class="btn btn-danger" type="submit" value="삭제">
   </form>
   <hr>  
+  {% include 'articles/_follow.html' %}
+  <hr>
   <a class="btn btn-primary" href="{% url 'articles:index' %}">BACK</a>
 {% endblock %}

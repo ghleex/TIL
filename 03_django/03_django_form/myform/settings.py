@@ -126,5 +126,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# AUTH_USER_MODEL = 'auth.User'
+AUTH_USER_MODEL = 'accounts.User'
 # 기본값으로 생략되어 있는 상태
+# Customizing: 'app_name.User'
