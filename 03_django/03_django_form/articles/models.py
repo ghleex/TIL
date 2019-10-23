@@ -11,7 +11,6 @@ class Article(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_articles', blank=True)
     # `blank=True`(빈 값 허용) != `null=True`(null 값 허용)
-
     
     class Meta:
         ordering = ('-pk',) # 튜플 안에 하나만 있어도 꼭 쉼표를 넣자
@@ -29,7 +28,6 @@ class Comment(models.Model):
     content = models.CharField(max_length=140)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
 
     class Meta:
         ordering = ('-pk',)
