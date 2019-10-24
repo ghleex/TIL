@@ -86,6 +86,7 @@ def delete(request, article_pk):
             article.delete()
         else:
             return redirect(article)
+            # return redirect('articles:detail', article_pk)
     return redirect('articles:index')
     # else:
     #     return redirect(article)
