@@ -141,3 +141,6 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'accounts.User'
 # 기본값으로 생략되어 있는 상태
 # Customizing: 'app_name.User'
+
+LOGIN_REDIRECT_URL = 'articles:index'
+# 기본값: LOGIN_REDIRECT_URL = '/accounts/profile/'

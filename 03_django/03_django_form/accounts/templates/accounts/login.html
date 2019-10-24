@@ -1,5 +1,6 @@
 {% extends 'articles/base.html' %}
 {% load bootstrap4 %}
+{% load socialaccount %}
 
 {% block title %}로그인{% endblock title %}
 
@@ -10,4 +11,5 @@
     {% bootstrap_form form %}
     {% buttons submit='로그인' reset="취소" %}{% endbuttons %}
   </form>
+  <a class="btn btn-warning" href="{% provider_login_url "kakao" %}">KAKAO</a>
 {% endblock %}
