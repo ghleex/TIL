@@ -1,5 +1,6 @@
 {% extends 'articles/base.html' %}
 {% load bootstrap4 %}
+{% load make_link %}
 
 {% block title %}게시글 보기{% endblock title %}
 
@@ -9,7 +10,7 @@
   <p><b>작성자: {{ article.user }}</b></p>
   <p>번호: {{ article.pk }}</p>
   <p>제목: {{ article.title }}</p>
-  <p>내용: {{ article.content }}</p>
+  <p>내용: {{ article|hashtag_link|safe }}</p>
   <p>생성: {{ article.created_at|date:"SHORT_DATE_FORMAT"}}</p>
   <p>수정: {{ article.updated_at|date:"M d Y D" }}</p>
   <hr>
