@@ -129,13 +129,12 @@ TIL
    User.objects.create(first_name='길동', last_name='고', age='35', country='서울특별시', phone='010-9365-6514', balance='990000')
    ```
    
-```sql
+   ```sql
    -- sql
    INSERT INTO users_user VALUES (102, '길동', '고', 35, '서울특별시', '010-9365-6514', 990000)
    ```
-   
 * 하나의 레코드를 빼고 작성 후 `NOT NULL` constraint 오류를 orm과 sql에서 모두 확인 해보세요.
-   
+  
 3. 해당 user 레코드 조회
 
    - `101` 번 id의 전체 레코드 조회
@@ -175,7 +174,7 @@ TIL
    ```python
    # orm
    User.objects.get(pk=101).delete()
-```
+   ```
    
    ```sql
    -- sql
@@ -290,14 +289,18 @@ TIL
    ```python
    # orm
    User.objects.filter(country='강원도', last_name='황').values('first_name')
-# 이름만 뽑아오기
-   User.objects.filter(country='강원도', last_name='황').values('first_name').first().get('first_name')
    ```
-   
-      ```sql
-   -- sql
-   SELECT first_name FROM users_user WHERE country='강원도' and last_name='황';
-      ```
+* ### 이름만 뽑아오기
+
+  ```python
+  # orm
+  User.objects.filter(country='강원도', last_name='황').values('first_name').first().get('first_name')
+  ```
+
+  ```sql
+  -- sql
+  SELECT first_name FROM users_user WHERE country='강원도' and last_name='황';
+  ```
 
 
 
@@ -338,24 +341,23 @@ TIL
       ```python
    # orm
    User.objects.order_by('balance', '-age')[:10]
-```
+   ```
    
    ```sql
    -- sql
    SELECT * FROM users_user ORDER BY balance ASC, age DESC LIMIT 10;
    ```
-   
 4. 성, 이름 내림차순 순으로 5번째 있는 사람
 
    ```python
    # orm
    User.objects.order_by('-last_name', '-first_name')[4]
-```
+   ```
    
-      ```sql
+   ```sql
    -- sql
    SELECT * FROM users_user ORDER BY last_name DESC, first_name DESC LIMIT 1 OFFSET 4;
-      ```
+   ```
 
 
 
