@@ -9,6 +9,8 @@ class Artist(models.Model):
 
 
 class Music(models.Model):
+    # serializer 에서 music_set 이름을 바꿔버리려고 함
+    # artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='musics')
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     title = models.TextField()
 

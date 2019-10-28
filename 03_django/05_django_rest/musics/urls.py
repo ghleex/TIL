@@ -18,10 +18,12 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('musics', views.music_list),
+    path('musics/', views.music_list),
     path('musics/<int:music_pk>/', views.music_detail),
     path('artists/', views.artist_list),
     path('artists/<int:artist_pk>/', views.artist_detail),
+    path('musics/<int:music_pk>/comment/', views.comment_create),
+    path('comment/<int:comment_pk>/', views.comment_update_and_delete),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
