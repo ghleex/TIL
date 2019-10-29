@@ -52,3 +52,23 @@ console.log(happy, hacking)
 Number.isNaN('ㅁㄴㅇ' + null)  // false; 
 Number.isNaN(1 + null)  // false; 
 Number.isNaN(1 + undefined) // true; 숫자이면서 NaN 모두 만족
+
+// 참고:
+// Number.isNaN(NaN);        // true
+// Number.isNaN(Number.NaN); // true
+// Number.isNaN(0 / 0)       // true
+
+// // 예를 들면 이들은 global isNaN()으로는 true가 됐을 것임
+// Number.isNaN("NaN");      // false
+// Number.isNaN(undefined);  // false
+// Number.isNaN({});         // false
+// Number.isNaN("blabla");   // false
+
+// // 이들 모두 false를 반환함
+// Number.isNaN(true);
+// Number.isNaN(null);
+// Number.isNaN(37);
+// Number.isNaN("37");
+// Number.isNaN("37.37");
+// Number.isNaN("");
+// Number.isNaN(" ");
