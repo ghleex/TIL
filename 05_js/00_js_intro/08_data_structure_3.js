@@ -22,4 +22,4 @@ COLORS.forEach(function (color) {
 COLORS.forEach(color => console.log(color))
 
 const result = COLORS.forEach(color => console.log(color))
-console.log(typeof result)
+console.log(typeof result)  // undefined; 반환 없음
