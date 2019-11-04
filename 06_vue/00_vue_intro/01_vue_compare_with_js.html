@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h3>JS</h3>
+  <input type="text" id="js-input">
+  <p id="js-p"></p>
+
+  <h3>Vue</h3>
+  <div id="app">
+    <input type="text" id="vue-input" v-model="message">
+    <p id="vue-p">{{ message }}</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    // JS
+    const input = document.querySelector('#js-input')
+    input.addEventListener('keydown', function (e) {
+      const value = e.target.value
+      document.querySelector('#js-p').innerText = value
+    })
+
+    // Vue
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: '',
+      }
+    })
+
+  </script>
+
+</body>
+</html>

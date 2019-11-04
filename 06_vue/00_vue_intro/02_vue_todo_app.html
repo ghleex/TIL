@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ToDo APP</title>
+</head>
+<body>
+  <div id="app">
+    <img v-bind:src="vueImage" alt="todo-list">
+    <li v-for="todo in todos" v-if="!todo.completed" v-on:click="check(todo)"><!-- v-on:click="todo.completed=true"> -->
+      {{ todo.content }}
+    </li>
+    <li v-else v-on:click="check(todo)">완료!: {{ todo.content }}</li>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        todos: [
+          {
+            content: '점심 메뉴 고민',
+            completed: true,
+          },
+          {
+            content: '사다리 타기',
+            completed: false,
+          },
+          {
+            content: '낮잠 자기',
+            completed: false,
+          },
+          {
+            content: '야자하기',
+            completed: false,
+          },
+        ],
+        vueImage: 'https://www.carew.com/wp-content/uploads/2017/12/To-Do-List-for-Sales-Effectiveness.jpg'
+      },
+      methods: {
+        check: function (todo) {
+          todo.completed = !todo.completed
+        },
+      },
+    })
+  </script>
+</body>
+</html>
