@@ -5,45 +5,140 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>ToDo APP</title>
+  <style>
+    .completed {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+  </style>
 </head>
 <body>
   <div id="app">
-    <img v-bind:src="vueImage" alt="todo-list">
-    <li v-for="todo in todos" v-if="!todo.completed" v-on:click="check(todo)"><!-- v-on:click="todo.completed=true"> -->
+    <select v-model="status">
+      <option value="all" selected>ALL</option>
+      <option value="active">ACTIVE</option>
+      <option value="completed">COMPLETED</option>
+    </select>
+
+    <div :style="{ color: activeColor, fontSize: fontSize + 'px',}">
+      Style Test
+    </div>
+    <img :src="vueImage" alt="todo-list">
+    <div v-for="todo in computedTodosByStatus" :class="{ completed: todo.completed }" :key="todo.id">  <!--v-on:click="todo.completed=true"> -->
+      <!-- key 값으로는 문자열과 숫자만 쓸 것. 배열 등은 안 됨 -->
+    <!-- <div v-for="todo in todos" v-bind:class="todo.completed ? 'completed' : ''"> -->
+      <input type="checkbox" v-model="todo.completed">
       {{ todo.content }}
-    </li>
-    <li v-else v-on:click="check(todo)">완료!: {{ todo.content }}</li>
+    </div>    
+    <div>
+      <input type="text" v-model="newTodo" @keyup.enter="addTodo">
+      <button @click="addTodo">+</button>
+    </div>
+    <footer>
+      <button @click="clearCompleted">Clear</button>
+    </footer>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
+    // LocalStorage 에 넣기 위한 것
+    const STORAGE_KEY = 'vue-todos'
+    const todoStorage = {
+      fetch: function () {
+        // parse: string 값을 json 으로 바꿔줄 것임
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+      },
+      save: function (todos) {
+        // stringify: json -> string
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
+      }
+    }
+
     const app = new Vue({
       el: '#app',
       data: {
+        status: 'all',
+        activeColor: 'royalblue',
+        fontSize: 30,
         todos: [
           {
+            id: 1,
             content: '점심 메뉴 고민',
             completed: true,
           },
           {
+            id: 2,
             content: '사다리 타기',
             completed: false,
           },
           {
+            id: 3,
             content: '낮잠 자기',
             completed: false,
           },
           {
+            id: 4,
             content: '야자하기',
             completed: false,
           },
         ],
+        newTodo: '',
         vueImage: 'https://www.carew.com/wp-content/uploads/2017/12/To-Do-List-for-Sales-Effectiveness.jpg'
       },
       methods: {
         check: function (todo) {
           todo.completed = !todo.completed
         },
+        addTodo: function () {
+          if (this.newTodo.length !== 0) {
+            this.todos.push({
+              id: Date.now(),
+              content: this.newTodo,
+              completed: false,
+            })
+            this.newTodo = ''
+          }
+        },
+        clearCompleted: function () {
+          const notCompletedTodos = this.todos.filter(todo => {
+            // completed 가 false 인 객체만 모아 배열로 반환
+            return !todo.completed
+          })
+          this.todos = notCompletedTodos
+        },
+      },
+      computed: {
+        computedTodosByStatus: function () {
+          // 진행 중인(완료되지 않은) 일
+          if (this.status === 'active') {
+            return this.todos.filter( todo => {
+              return !todo.completed
+            })
+          }
+          // 완료된 사항
+          if (this.status === 'completed') {
+            return this.todos.filter( todo => {
+              return todo.completed
+            })
+          }
+          // all; active, completed 둘 다 아닌 모든 사항
+          return this.todos
+        },
+      },
+      watch: {
+        todos: {
+          // handler: 특정 데이터가 변경됐을 때 실행할 함수
+          handler: function (todos) {
+            todoStorage.save(todos)
+          },
+          // 객체의 nested item 에 대해서도 관찰 여부 결정
+          // true 라면, 내부 요소까지 모두 감시
+          deep: true,
+        }
+      },
+      // 새로고침될 때(DOM 과 Vue instance 가 연결되는 시점) 실행
+      mounted: function () {
+        this.todos = todoStorage.fetch()
       },
     })
   </script>
