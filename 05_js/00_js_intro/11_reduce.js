@@ -7,7 +7,7 @@
 // 배열 전체를 기준으로 동작
 
 // 총 합
-const ssafyTests = [90, 90, 80, 77,]
+const ssafyTests = [90, 90, 80, 77, ]
 const sum = ssafyTests.reduce(function (total, x) {
   return total += x
   // return 이 있는 경우 total += x, 0 불가능 ==> 0 으로 나옴
@@ -30,10 +30,10 @@ console.log(sum)
 
 // 4.1. 연습
 // 주어진 배열 내 모든 요소의 합을 구하시오
-const arr = [0, 1, 2, 3,]
+const arr = [0, 1, 2, 3, ]
 const summy = arr.reduce(function (total, x) {
   return total += x
- }, 0)
+}, 0)
 
 // Refactoring 결과
 // const summy = arr.reduce( (total, x) => total += x, 0 )
