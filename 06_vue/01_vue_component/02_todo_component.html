@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
     }
   </style>
 </head>
+
 <body>
   <div id="app">
     <h1>My TODO App</h1>
@@ -31,9 +33,9 @@
           <h2>{{ category }}</h2>
           <input type="text" v-model="newTodo" @keyup.enter="addTodo">
           <button @click="addTodo">+</button>
-          <li v-for="todo in todos" :class="todo.completed" :key="todo.id">
+          <li v-for="todo in todos" :key="todo.id">
             <span>{{ todo.content }}</span>
-            <button @click="removeTodo1(todo.id)">X</button>
+            <button @click="removeTodo(todo.id)">X</button>
           </li>
         </div>`,
       props: {
@@ -52,13 +54,13 @@
       },
       // component 에서 data 는 함수여야 함
       // 모든 todos 와 newTodo 는 개별적인 내부 공간을 가짐
-      data: function () {        
+      data: function () {
         // return {
         //   counter: 0
         // }
         return {
           todos: [],
-          newTodo: '',          
+          newTodo: '',
         }
       },
       methods: {
@@ -73,7 +75,7 @@
           }
         },
         removeTodo: function (todoId) {
-          this.todos = this.todos.filter( todo => {
+          this.todos = this.todos.filter(todo => {
             // 완료된 todo 를 제외한 나머지만 불러와 새로운 배열로 반환해야 함
             return todo.id != todoId
           })
@@ -86,4 +88,5 @@
     })
   </script>
 </body>
+
 </html>

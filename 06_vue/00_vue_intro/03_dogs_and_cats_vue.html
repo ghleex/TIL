@@ -26,17 +26,17 @@
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
     const dogs = function () {
-          const URL = 'https://dog.ceo/api/breeds/image/random'
-          axios.get(URL)
-            .then(response => {
-              // 같은 instance 안에 있는 data 내 속성 값은 this 키워드를 통해 접근
-              this.images.push(response.data.message)
-            })
-        }
+      const URL = 'https://dog.ceo/api/breeds/image/random'
+      axios.get(URL)
+        .then(response => {
+          // 같은 instance 안에 있는 data 내 속성 값은 this 키워드를 통해 접근
+          this.images.push(response.data.message)
+        })
+    }
     const app = new Vue({
       el: '#app',
       data: {
-        images: [],  // 요청 받은 데이터를 담아야 하므로 초기값을 빈 문자열로 함
+        images: [], // 요청 받은 데이터를 담아야 하므로 초기값을 빈 문자열로 함
       },
       methods: {
         getDogImage: dogs,
@@ -49,7 +49,6 @@
         },
       },
     })
-
   </script>
 </body>
 
