@@ -1,9 +1,14 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
-# from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 # from rest_framework.authentication import JSONWebTokenAuthentication
-from django.shortcuts import render
-from .serializers import TodoSerializer
+from django.http import HttpResponseForbidden
+from django.contrib.auth import get_user_model
+from django.shortcuts import render, get_object_or_404
+from .serializers import TodoSerializer, UserCreationSerializer, UserSerializer
+from .models import Todo
+
+User = get_user_model()
 
 # Create your views here.
 @api_view(['POST'])
@@ -21,5 +26,37 @@ def todo_create(request):
 
 
 @api_view(['PUT', 'DELETE'])
-def todo_update_delete(request):
-    pass
+def todo_update_delete(request, id):
+    todo = get_object_or_404(Todo, pk=id)
+    if request.method == 'PUT':
+        serializer = TodoSerializer(todo, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+    elif request.method == 'DELETE':
+        todo.delete()
+        # 204: No Content; 해당 콘텐츠가 없음(삭제로 인하여 해당 데이터가 존재하지 않음을 알려주기 위한 용도)
+        return Response(status=204)
+
+
+@api_view(['POST'])
+@permission_classes((AllowAny, ))
+def user_signup(request):
+    serializer = UserCreationSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        user = serializer.save()
+        user.set_password(request.data.get('password'))
+        user.save()
+        # print(serializer.data)
+        return Response({'message': '회원가입이 성공적으로 완료됐습니다.'})
+
+
+@api_view(['GET'])
+def user_detail(request, id):
+    user = get_object_or_404(User, pk=id)
+    if request.user != user:
+        return HttpResponseForbidden()
+        # return Response(status=403)
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
