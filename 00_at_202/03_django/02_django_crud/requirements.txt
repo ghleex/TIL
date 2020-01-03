@@ -4,7 +4,7 @@ certifi==2019.9.11
 chardet==3.0.4
 colorama==0.4.1
 decorator==4.4.1
-Django==3.0.2
+Django>=3.0.2
 django-appconf==1.0.3
 django-extensions==2.2.5
 django-imagekit==4.0.2
