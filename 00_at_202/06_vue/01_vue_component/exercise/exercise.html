@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <my-todo-list category="wishList"></my-todo-list>
+    <my-todo-list category="todoList"></my-todo-list>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    Vue.component('my-todo-list', {
+      template:`
+        <div class="my-todo-list">
+          <h2 v-bind:style="{ color: titleColor }">{{ category }}</h2>
+          <input type="text" v-model="newTodo" @keyup.enter="addTodo">
+          <button @click="addTodo">Click</button>
+          <li v-for="todo in todos">
+            <span>{{ todo.content }}</span>
+            <button @click="removeTodo(todo.id)">x</button>
+          </li>
+        </div>`,
+      props: {
+        category: {
+          type: String,
+          required: true,
+          validator: function(value){
+            if (value.length < 10) {
+              return true
+            } else {
+              return false
+            }
+          }
+        }
+      },
+      data: function() {
+        return {
+          todos: [],
+          newTodo: '',
+          todayDate: '',
+          titleColor: 'royalblue',
+        }
+      },
+      methods: {
+        addTodo: function() {
+          if (this.newTodo.length !== 0) {
+            this.todos.push({
+              id: Date.now(),
+              content: this.newTodo,
+              completed: false,
+              todayDate: Date(),
+            })
+            this.newTodo = '' 
+          } 
+        },
+        removeTodo: function(todoId) {
+          this.todos = this.todos.filter(todo => {
+            return todo.id !== todoId
+          })
+        }
+      }
+    })
+    const app = new Vue({
+      el: '#app',
+    })
+  </script>
+</body>
+</html>

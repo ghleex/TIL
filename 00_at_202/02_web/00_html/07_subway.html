@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SUBWAY ORDER</title>
+</head>
+
+<body>
+  <h1>FORM</h1>
+  <p>주문서를 작성하여 주십시오.</p>
+  <label for="name">이름: </label>
+  <form action="#">
+    <input type="text" id="name" placeholder="이름을 입력해주세요"><br>
+    <label for="date">날짜: </label>
+    <input type="date" id="date">
+    <h2>1. 샌드위치 선택</h2>
+    <input type="radio" name="sandwich" value="eggmayo" checked>에그 마요<br>
+    <input type="radio" name="sandwich" value="italian">이탈리안 비엠티<br>
+    <input type="radio" name="sandwich" value="turkey">터키 베이컨 아보카도<br>
+    <hr>
+    <h2>2. 사이즈 선택</h2>
+    <input type="number" name="size" min="15" max="30" step="15">
+    <hr>
+    <h2>3. 빵</h2>
+    <select name="bread">
+      <option value="honeyoat">허니오트</option>
+      <option value="flatbread" disabled>플랫브래드</option>
+      <option value="italian">하티 이탈리안</option>
+    </select>
+    <hr>
+    <h2>4. 야채/소스</h2>
+    <input type="checkbox" name="vegensauce" value="tomato">토마토<br>
+    <input type="checkbox" name="vegensauce" value="cucumber">오이<br>
+    <input type="checkbox" name="vegensauce" value="halapion">할라피뇨<br>
+    <input type="checkbox" name="vegensauce" value="chilly">핫 칠리<br>
+    <input type="checkbox" name="vegensauce" value="bbq">바베큐<br>
+
+    <input type="submit" value="submit">
+  </form>
+</body>
+
+</html>

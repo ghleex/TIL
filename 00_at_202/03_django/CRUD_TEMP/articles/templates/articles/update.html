@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="text-center">UPDATE</h1>
+  <form action="" method="POST">
+    {% csrf_token %}  
+    {% comment %} POST 방식에서 {% csrf_token %} 잊지 말자 {% endcomment %}
+    <label for="title">TITLE</label>
+    <input type="text" name="title" id="title" value="{{ article.title }}"><br>
+    {% comment %} value="{{ article.title }} 추가 {% endcomment %}
+    <label for="content">CONTENT</label>
+    <textarea name="content" id="content" cols="30" rows="5">{{ article.content }}</textarea><br>
+    {% comment %} textarea 태그 안에 넣어주기 {% endcomment %}
+    {% comment %} django는 textarea 사용 {% endcomment %}
+    <input type="submit" value="update">
+  </form>
+  <a href="{{ article.get_absolute_url }}">[ BACK ]</a>
+{% endblock %}

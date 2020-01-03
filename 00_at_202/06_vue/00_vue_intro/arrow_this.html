@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <button id="function">function</button>
+  <button id="arrow">arrow function</button>
+
+  <script>
+    const functionButton = document.querySelector('#function')
+    const arrowButton = document.querySelector('#arrow')
+
+    functionButton.addEventListener('click', function (event) {
+      console.log('==== function ====')
+      console.log(this)
+    })
+    arrowButton.addEventListener('click', event => {
+      console.log('==== arrow function ====')
+      // 아래 this 는 윈도우가 선택될 것임
+      console.log(this)
+    })
+
+    // 1. function 표현식: 함수 호출(전역), 함수 내 함수에서 function -> window
+    const greeting = function () {
+      console.log(this)
+    }
+
+    greeting()  // window 가 뜸; 전역에서 호출됐기 때문에 전역 객체(window)가 binding
+
+    // 2. method 호출 -> 해당 객체
+    const you = {
+      name: 'hong',
+      greeting
+    }
+
+    you.greeting()  // you('{name: "hong", greeting: ƒ}') 가 나옴; this 는 해당 object(객체)
+
+    // 3. arrow function 은 함수 내 함수에서 사용 -> 해당 객체 반환
+    // arrow 에서 this 는 호출 위치와 상관 없이 상위 scope this 를 가리킴; lexical-this
+    // 따라서 method 선언을 arrow 함수로 하게 되면,
+    // 해당 object 의 상위 scope 인 전역 객체 window 가 binding 됨
+    
+    const arrowGreeting = () => console.log(this) // 함수 정의 시
+    const me = {
+      name: 'tak',
+      arrowGreeting,  // 객체 내에서 함수 정의 시
+    }
+    arrowGreeting() // window
+    me.arrowGreeting()  // window
+
+    // arrow function 가능한 경우: 함수 안 함수
+    const num = {
+      numbers: [1],
+      print: function () {
+        console.log(this) // num; {numbers: Array(1), print: ƒ}
+        console.log(this.numbers) // [1]
+        this.numbers.forEach(function(num) {
+          console.log(num)  // 1
+          console.log(this) // window; 함수 내 함수
+        })
+      }
+    }
+    num.print()
+
+    const num2 = {
+      numbers: [1],
+      print: function () {
+        console.log(this) // num2 객체; {numbers: Array(1), print: ƒ}
+        console.log(this.numbers) // [1]
+        this.numbers.forEach(num => {
+          console.log(num)  // 1
+          console.log(this) // num2 객체; {numbers: Array(1), print: ƒ}
+          // 위와 같은 이유로 arrow function 을 사용하는 것임!
+        })
+      }
+    }
+    num2.print()
+
+
+    // EventListener
+    // EventListener 에서 callback 함수:
+    // 특별히 function 키워드의 경우, EventListener 를 호출한 대상(event.target)을 뜻함
+    // 따라서 호출한 대상을 원한다면 this 사용 가능
+    // 단, arrow function 의 경우, 위치와 상관없이 상위 scope 를 지칭하기 때문에 window 객체 출력
+
+  </script>
+</body>
+</html>

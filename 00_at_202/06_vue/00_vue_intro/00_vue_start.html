@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue start</title>
+</head>
+<body>
+    <!-- 아래 {{ message }} 에는 message 출력되지 않음; app 바깥이라서 -->
+  <!-- {{ message }} -->
+    <div id="app">
+      <!-- 여기는 data를 받기만; interpolation(보간법) -->
+      {{ message }} - {{ count }}
+    </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    // 핵심 내용은 vue instances에, html은 껍데기 역할만 할 것임
+    // binding 과정
+    const app = new Vue({
+      // el - element
+      el: '#app',
+      // data - 속성
+      data: {
+        message: 'Hello Vue!',
+        count: 0,        
+        // test: this.message, // this 가 가리키는 것: 상위 객체
+      },
+      methods: {
+        // 표현식
+        plus: () => {
+          // arrow function 이 가리키는 것: 최상위 객체(window)
+          this.count++  // Vue 인스턴스 내에서 data 내의 값들에 대하여 this 로 접근 가능
+        },
+        // 선언식
+        minus() {
+          this.count--
+        },
+      },
+    })
+
+    app.message // data 건너뛰어도 접근 가능? === app.$data.message (이 방법이 안전함)
+    app.$data // 데이터 객체 접근
+  </script>
+</body>
+</html>
