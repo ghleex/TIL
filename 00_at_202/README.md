@@ -1,15 +1,5 @@
 # :book: Today I Learned :pencil2:
 
-## 1. 학습 내용 정리 공간
-
-* ### 알고리즘 부분은 별도 공간에 정리
-
-* ### 이곳은 python, web(html/css/javascript/vue.js), django 중심으로 정리
-
-
-
--------------------
-
 ## 1. SSAFY 과정 중 학습 공간
 
 ### 1.0. Startcamp
@@ -36,7 +26,6 @@
 
 * #### 객체 지향 프로그래밍(클래스) 이해
 
-* #### 파이썬 코딩 도장 학습 내용 정리: 추후 업데이트
 
 
 
@@ -53,6 +42,8 @@
 * #### CRUD 기본
 
 * #### Django framework 구축
+
+* #### Django REST Framework 사용
 
 
 
