@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>2020-01-08 | document.write 연습</title>
+</head>
+
+<body>
+  <p>오늘은 4월 2일 입니다.</p>
+</body>
+<script>
+  const now = new Date()
+  const month = now.getMonth() + 1
+  const day = now.getDate()
+  document.write('<p>오늘은 ' + month + '월 ' + day + '일 입니다.</p>')
+</script>
+
+</html>
