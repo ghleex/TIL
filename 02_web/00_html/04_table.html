@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>TABLE</title>
+</head>
+
+<body>
+  <table border="1px solid black" summary="2019년 7월 마지막 주 월화수 점심메뉴표입니다.">
+    <caption>유성연수원 20주차 점심 메뉴표</caption> <!-- 접근성을 위한 것. table 태그 바로 아래에 작성해야 함 -->
+    <thead>
+      <!-- 단순 table head 표시 -->
+      <tr>
+        <!-- table row: 행; 가로 줄 -->
+        <th></th> <!-- table header: 자동으로 bold 체로 출력됨 -->
+        <th>월</th>
+        <th>화</th>
+        <th>수</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- table body 표시 -->
+      <tr>
+        <td>A 코스</td> <!-- table data: 열; 세로 줄 -->
+        <td rowspan="2">짬뽕</td> <!-- 세로 셀 합하기 -->
+        <td colspan="2">초밥</td> <!-- 가로 셀 합하기 -->
+      </tr>
+      <tr>
+        <td>B 코스</td> <!-- table data: 열; 세로 줄 -->
+        <td>김치찌개</td>
+        <td>삼계탕</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>식수</td>
+        <td colspan="3">총 150명 식사</td>
+      </tr>
+    </tfoot>
+  </table>
+</body>
+
+</html>

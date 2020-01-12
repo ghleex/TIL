@@ -1,0 +1,104 @@
+[
+{
+  "model": "musics.artist",
+  "pk": 1,
+  "fields": {
+    "name": "Adele"
+  }
+},
+{
+  "model": "musics.artist",
+  "pk": 2,
+  "fields": {
+    "name": "Coldplay"
+  }
+},
+{
+  "model": "musics.music",
+  "pk": 1,
+  "fields": {
+    "artist": 1,
+    "title": "When We Were Young"
+  }
+},
+{
+  "model": "musics.music",
+  "pk": 2,
+  "fields": {
+    "artist": 1,
+    "title": "Hello"
+  }
+},
+{
+  "model": "musics.music",
+  "pk": 3,
+  "fields": {
+    "artist": 2,
+    "title": "Clocks"
+  }
+},
+{
+  "model": "musics.music",
+  "pk": 4,
+  "fields": {
+    "artist": 2,
+    "title": "A Sky Full of Stars"
+  }
+},
+{
+  "model": "musics.comment",
+  "pk": 1,
+  "fields": {
+    "music": 3,
+    "content": "It's been about 20 years since Clock's out, this is still great song."
+  }
+},
+{
+  "model": "musics.comment",
+  "pk": 2,
+  "fields": {
+    "music": 3,
+    "content": "It gives new feeling every time I listen the song"
+  }
+},
+{
+  "model": "musics.comment",
+  "pk": 3,
+  "fields": {
+    "music": 2,
+    "content": "Hello?"
+  }
+},
+{
+  "model": "musics.comment",
+  "pk": 4,
+  "fields": {
+    "music": 2,
+    "content": "This makes me emotional"
+  }
+},
+{
+  "model": "musics.comment",
+  "pk": 5,
+  "fields": {
+    "music": 1,
+    "content": "It's very emotional song"
+  }
+},
+{
+  "model": "musics.comment",
+  "pk": 6,
+  "fields": {
+    "music": 4,
+    "content": "cheerful"
+  }
+},
+{
+  "model": "musics.comment",
+  "pk": 7,
+  "fields": {
+    "music": 4,
+    "content": "very nice"
+  }
+}
+]
