@@ -53,19 +53,25 @@
 
 
 
-### 5. Javascript & Vue.js
+### 5. Javascript
 
 * #### Javascript 와 Vue 를 이용한 비동기
 
 
 
-### 6. Git
+### 6.  Vue.js
+
+* #### Vue.js 를 활용한 frontend page 만들기
+
+
+
+### 7. Git
 
 * #### Git 사용법
 
 
 
-### 7. C++
+### 8. C++
 
 * #### 객체 지향 프로그래밍에 대한 이해
 
@@ -74,7 +80,13 @@
 
 
 
-### 8. Artificial Intelligence :robot:
+### 9. Artificial Intelligence :robot:
 
-* #### TBA
+* #### 자연어 처리(NLP)를 위한 기본 개념
+
+* #### RNN 이해와 구현
+
+* #### 이미지 처리를 위한 기본 개념
+
+* #### CNN 이해와 구현
 
