@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/vue,venv,vuejs,python,django,visualstudiocode
-# Edit at https://www.gitignore.io/?templates=vue,venv,vuejs,python,django,visualstudiocode
+# Created by https://www.toptal.com/developers/gitignore/api/python,django,visualstudiocode,venv,virtualenv,jupyternotebooks,vuejs
+# Edit at https://www.toptal.com/developers/gitignore?templates=python,django,visualstudiocode,venv,virtualenv,jupyternotebooks,vuejs
 
 ### Django ###
 *.log
@@ -65,11 +65,18 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
+*.py,cover
 .hypothesis/
 .pytest_cache/
 
 # Translations
 *.mo
+
+# Django stuff:
+
+# Flask stuff:
+instance/
+.webassets-cache
 
 # Scrapy stuff:
 .scrapy
@@ -79,6 +86,13 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
 
 # pyenv
 .python-version
@@ -90,11 +104,24 @@ target/
 #   install all needed dependencies.
 #Pipfile.lock
 
-# celery beat schedule file
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+__pypackages__/
+
+# Celery stuff
 celerybeat-schedule
+celerybeat.pid
 
 # SageMath parsed files
 *.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
 
 # Spyder project settings
 .spyderproject
@@ -102,11 +129,6 @@ celerybeat-schedule
 
 # Rope project settings
 .ropeproject
-
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
 
 # mkdocs documentation
 /site
@@ -118,6 +140,20 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# pytype static type analyzer
+.pytype/
+
+### JupyterNotebooks ###
+# gitignore template for Jupyter Notebooks
+# website: http://jupyter.org/
+
+*/.ipynb_checkpoints/*
+
+# IPython
+
+# Remove previous ipynb_checkpoints
+#   git rm -r .ipynb_checkpoints/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
@@ -136,11 +172,19 @@ dmypy.json
 
 # Translations
 
+# Django stuff:
+
+# Flask stuff:
+
 # Scrapy stuff:
 
 # Sphinx documentation
 
 # PyBuilder
+
+# Jupyter Notebook
+
+# IPython
 
 # pyenv
 
@@ -150,21 +194,25 @@ dmypy.json
 #   having no cross-platform support, pipenv may install dependencies that don't work, or not
 #   install all needed dependencies.
 
-# celery beat schedule file
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+
+# Celery stuff
 
 # SageMath parsed files
+
+# Environments
 
 # Spyder project settings
 
 # Rope project settings
-
-# Mr Developer
 
 # mkdocs documentation
 
 # mypy
 
 # Pyre type checker
+
+# pytype static type analyzer
 
 ### venv ###
 # Virtualenv
@@ -176,14 +224,11 @@ dmypy.json
 [Ll]ocal
 [Ss]cripts
 pyvenv.cfg
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
 pip-selfcheck.json
+
+### VirtualEnv ###
+# Virtualenv
+# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
 
 ### VisualStudioCode ###
 .vscode/*
@@ -191,25 +236,11 @@ pip-selfcheck.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+*.code-workspace
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
-
-### Vue ###
-.DS_*
-logs
-**/*.backup.*
-**/*.back.*
-
-node_modules
-bower_componets
-
-*.sublime*
-
-psd
-thumb
-sketch
 
 ### Vuejs ###
 # Recommended template: Node.gitignore
@@ -218,4 +249,4 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
-# End of https://www.gitignore.io/api/vue,venv,vuejs,python,django,visualstudiocode
+# End of https://www.toptal.com/developers/gitignore/api/python,django,visualstudiocode,venv,virtualenv,jupyternotebooks,vuejs
