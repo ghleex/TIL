@@ -1,3 +1,7 @@
+![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.com/ghleex/til&title=HITS)
+
+
+
 # :book: Today I Learned :pencil2:
 
 ## 1. Python :snake:
