@@ -1,4 +1,4 @@
-# :robot: ​Machine Learning
+# :robot: ​Machine Learning    <small>by 생활코딩</small>
 
 ## :one: 머신러닝 기초 
 
