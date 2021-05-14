@@ -12,6 +12,7 @@
     "core-js": "^3.9.1",
     "is-svg": "^4.3.1",
     "minimist": "^1.2.5",
+    "postcss": "^8.2.15",
     "vue": "^2.6.12"
   },
   "devDependencies": {
