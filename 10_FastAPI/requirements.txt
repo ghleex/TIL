@@ -2,7 +2,7 @@ asyncpg==0.22.0
 click==7.1.2
 colorama==0.4.4
 databases==0.4.3
-fastapi==0.65.1
+fastapi==0.65.2
 greenlet==1.1.0
 gunicorn==20.1.0
 h11==0.12.0
